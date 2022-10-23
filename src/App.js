@@ -1,23 +1,33 @@
-import logo from './logo.svg';
+import CurrencyTable from './Currency.jsx';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 
 function App() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("https://api.exchangerate.host/latest?base=UAH")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setData(result);
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        <h2>Current currency UAH</h2>
+        <div>EUR {(1/data?.rates?.EUR).toFixed(2)}</div>
+        <div>USD {(1/data?.rates?.USD).toFixed(2)}</div>
       </header>
+      <CurrencyTable
+      />
+      <CurrencyTable/>
     </div>
   );
 }
