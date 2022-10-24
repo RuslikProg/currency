@@ -25,9 +25,12 @@ function App() {
         <div>EUR {(1/data?.rates?.EUR).toFixed(2)}</div>
         <div>USD {(1/data?.rates?.USD).toFixed(2)}</div>
       </header>
-      <CurrencyTable
+      <CurrencyTable 
+        data={data}
       />
-      <CurrencyTable/>
+      <CurrencyTable
+        data={data}
+      />
     </div>
   );
 }
