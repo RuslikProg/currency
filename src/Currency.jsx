@@ -1,8 +1,20 @@
-import React, { useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {getCurrency} from './currencyThunk';
 
-const CurrencyTable = ({data}) => {
+const CurrencyTable = () => {
   const [select, setSelect] = useState("USD");
   const [input, setInput] = useState(0);
+
+  const dispatch = useDispatch();
+  const {data} = useSelector(state => state.currencyApp);
+
+  useEffect(() => {
+    dispatch(getCurrency())
+  }, []);
+
+  console.log('data', data)
+ 
 
   const handleExchange = (event)=>{
    setInput(event.target.value);
