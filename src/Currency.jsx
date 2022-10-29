@@ -13,9 +13,6 @@ const CurrencyTable = () => {
     dispatch(getCurrency())
   }, []);
 
-  console.log('data', data)
- 
-
   const handleExchange = (event)=>{
    setInput(event.target.value);
   }
