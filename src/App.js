@@ -1,27 +1,22 @@
-import CurrencyTable from './Currency.jsx';
-import React, {useEffect} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import {getCurrency} from './currencyThunk';
+import CurrencyTable from './componenets/Currency.jsx';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import './App.css';
+import Header from './componenets/Header';
 
 function App() {
-  const dispatch = useDispatch();
   const {data} = useSelector(state => state.currencyApp);
-
-  useEffect(() => {
-    dispatch(getCurrency())
-  }, []);
 
   return (
     <div className="App">
-      <header>
-        <h2>Current currency UAH</h2>
-        <div>EUR {(1/data?.rates?.EUR).toFixed(2)}</div>
-        <div>USD {(1/data?.rates?.USD).toFixed(2)}</div>
-      </header>
-      <CurrencyTable 
+      <Header
+        data={data}
       />
       <CurrencyTable
+        data={data}
+      />
+      <CurrencyTable
+        data={data}
       />
     </div>
   );

@@ -1,26 +1,41 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {getCurrency} from './currencyThunk';
 
 const initialState = {
-  data: [],
+  data: {rates: {USD:0, EUR:0}},
   loading: false,
 };
 
 export const currencySlice = createSlice({
   name: 'currencyApp',
   initialState: initialState,
-  reducers: {},
-  extraReducers:{ 
-    [getCurrency.pending]: (state) => {
-      state.loading = true
+  reducers: {
+    getCurrency: (state)=>{
+      return {
+        ...state,
+        loading: true,
+      }
+    },
+    getCurrencyError: (state)=>{
+      return {
+        ...state,
+        loading: false
+      }
+    },
+    getCurrencySuccess: (state, {payload})=>{
+      return {
+        ...state,
+        loading: false,
+        data: payload
+      }
+    }
   },
-    [getCurrency.fulfilled]: (state, { payload }) => {
-      state.loading = false
-      state.data = payload
-  },
-    [getCurrency.rejected]: (state) => {
-      state.loading = false
-  },},
 });
+
+export const {
+	getCurrency,
+	getCurrencyError,
+	getCurrencySuccess,
+} = currencySlice.actions;
+
 
 export default currencySlice.reducer;
